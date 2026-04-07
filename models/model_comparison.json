@@ -1,30 +1,30 @@
 {
-  "best_model": "Ridge Regression",
+  "best_model": "Linear Regression",
   "results": {
     "Linear Regression": {
-      "MAE": 4.9242,
-      "RMSE": 6.1806,
-      "R2": 0.6527
+      "MAE": 4.067,
+      "RMSE": 5.0379,
+      "R2": 0.8294
     },
     "Ridge Regression": {
-      "MAE": 4.9045,
-      "RMSE": 6.1661,
-      "R2": 0.6543
+      "MAE": 4.067,
+      "RMSE": 5.0379,
+      "R2": 0.8294
     },
     "Decision Tree": {
-      "MAE": 7.9317,
-      "RMSE": 9.3968,
-      "R2": 0.1972
+      "MAE": 5.4445,
+      "RMSE": 6.7474,
+      "R2": 0.694
     },
     "Random Forest": {
-      "MAE": 6.1062,
-      "RMSE": 7.4121,
-      "R2": 0.5005
+      "MAE": 4.262,
+      "RMSE": 5.335,
+      "R2": 0.8087
     },
     "Gradient Boosting": {
-      "MAE": 5.9265,
-      "RMSE": 7.4906,
-      "R2": 0.4899
+      "MAE": 4.1665,
+      "RMSE": 5.159,
+      "R2": 0.8211
     }
   }
 }

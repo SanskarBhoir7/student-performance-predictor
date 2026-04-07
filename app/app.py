@@ -329,6 +329,12 @@ with col_results:
                 unsafe_allow_html=True,
             )
 
+# ── Bottom Section ────────────────────────────────────────────────
+st.markdown("<hr style='opacity: 0.15; margin: 2rem 0;'>", unsafe_allow_html=True)
+col_b_left, col_b_right = st.columns([1, 1], gap="large")
+
+with col_b_left:
+    if True:
         # ── What-If Analysis ──────────────────────────────────────
         st.markdown('<div class="section-title">🔬 What-If Analysis</div>', unsafe_allow_html=True)
 
@@ -448,6 +454,8 @@ with col_results:
             )
             st.plotly_chart(fig2, use_container_width=True)
 
+with col_b_right:
+    if True:
         # ── Goal-Seek Calculator ──────────────────────────────────
         st.markdown('<div class="section-title">🎯 Goal-Seek Calculator</div>', unsafe_allow_html=True)
         st.markdown("<p style='font-size:0.9rem; opacity:0.8;'>Want a higher score? Find out exactly what habits you need to change.</p>", unsafe_allow_html=True)

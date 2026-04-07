@@ -73,11 +73,16 @@ class CSPSolver:
 
     def _predict(self, features: dict) -> float:
         """Score a complete feature assignment using the ML model."""
-        input_data = pd.DataFrame(
-            [[features[f] for f in FEATURES]],
-            columns=FEATURES,
-        )
-        input_scaled = self.scaler.transform(input_data)
+        # High-performance path avoiding pandas
+        input_array = np.array([[features[f] for f in FEATURES]])
+        
+        # We can safely use the scikit-learn scaler without dataframes
+        # and ignore the feature_names warning for speed
+        if hasattr(self.scaler, "mean_") and hasattr(self.scaler, "scale_"):
+            input_scaled = (input_array - self.scaler.mean_) / self.scaler.scale_
+        else:
+            input_scaled = self.scaler.transform(input_array)
+            
         prediction = self.model.predict(input_scaled)[0]
         return float(np.clip(prediction, 0, 100))
 
@@ -183,13 +188,17 @@ class CSPSolver:
             "previous_score": current_features["previous_score"],
         }
 
-        # Build initial domains
+        # Build initial domains and sort by distance to current features
+        # This acts as a value-ordering heuristic to find low-effort solutions first!
         domains = {}
         for var in CSP_VARIABLES:
-            domains[var] = [
+            valid_vals = [
                 v for v in VARIABLE_DOMAINS[var]
                 if _unary_constraints_satisfied(var, v)
             ]
+            curr_val = current_features.get(var, 0)
+            valid_vals.sort(key=lambda x: abs(x - curr_val))
+            domains[var] = valid_vals
 
         # Collect more solutions than needed, then rank by effort
         solutions = []
